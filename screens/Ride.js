@@ -123,16 +123,28 @@ export default class RideScreen extends Component {
         });
       });
   };
-
   getUserDetails = userId => {
+    // A função recebe um parâmetro userId
+  
+    // Acessa a coleção "users" no banco de dados Firestore
     db.collection("users")
+      // Filtra os documentos onde o campo "id" é igual ao userId fornecido
       .where("id", "==", userId)
+      // Realiza a consulta ao banco de dados
       .get()
       .then(snapshot => {
+        // A função de retorno é executada quando a consulta é bem-sucedida, e snapshot contém os resultados
+  
+        // Mapeia sobre os documentos retornados na consulta
         snapshot.docs.map(doc => {
+          // Para cada documento, atualiza o estado do componente (presumivelmente React) com as informações obtidas do documento
+  
+          // Define o estado userName com o valor do campo 'name' no documento
           this.setState({
             userName: doc.data().name,
+            // Define o estado userId com o valor do campo 'id' no documento
             userId: doc.data().id,
+            // Define o estado bikeAssigned com o valor do campo 'bike_assigned' no documento
             bikeAssigned: doc.data().bike_assigned
           });
         });
